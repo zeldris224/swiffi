@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>for swiffi 🩷</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Quicksand:wght@400;500;600;700&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #fff6f8;
+    --bg-soft: #ffeef3;
+    --pink-deep: #e85d8a;
+    --pink-mid: #ffb6c9;
+    --pink-pale: #ffd3e0;
+    --cream: #fdf1e6;
+    --ink: #5b2a3d;
+    --ink-soft: #8a5468;
+    --white: #fffdfc;
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  *{ box-sizing: border-box; }
+  html{ scroll-padding-top: env(safe-area-inset-top, 0px); }
+  html,body{ margin:0; padding:0; }
+  body{
+    background: var(--bg);
+    background-image:
+      radial-gradient(circle at 12% 8%, var(--bg-soft) 0%, transparent 40%),
+      radial-gradient(circle at 88% 92%, var(--bg-soft) 0%, transparent 45%);
+    color: var(--ink);
+    font-family: 'Quicksand', sans-serif;
+    overflow-x: hidden;
+    min-height: 100%;
+  }
+
+  /* ---------- floating hearts (one-time entrance) ---------- */
+  .hearts{ position:fixed; inset:0; pointer-events:none; z-index:1; overflow:hidden; }
+  .hearts span{
+    position:absolute; bottom:-10%; font-size: 22px; opacity:0;
+    animation: floatUp 4.5s ease-in forwards;
+  }
+  @keyframes floatUp{
+    0%{ transform: translateY(0) rotate(0deg); opacity:0; }
+    10%{ opacity:.9; }
+    100%{ transform: translateY(-115vh) rotate(25deg); opacity:0; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .hearts{ display:none; }
+  }
+
+  /* ---------- hero ---------- */
+  .hero{
+    position: relative;
+    z-index: 2;
+    padding: 96px 24px 64px;
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+  .eyebrow-note{
+    font-family: 'Caveat', cursive;
+    font-size: 26px;
+    color: var(--pink-deep);
+    transform: rotate(-3deg);
+    display: inline-block;
+    margin-bottom: 6px;
+  }
+  h1.title{
+    font-family: 'Baloo 2', sans-serif;
+    font-weight: 800;
+    font-size: clamp(44px, 10vw, 84px);
+    line-height: 1.02;
+    margin: 0;
+    color: var(--pink-deep);
+    letter-spacing: -0.01em;
+  }
+  h1.title span{
+    display:block;
+    color: var(--ink);
+    font-size: 0.4em;
+    font-weight: 700;
+    margin-top: 10px;
+    font-family: 'Quicksand', sans-serif;
+  }
+  .hero p.sub{
+    margin: 22px auto 0;
+    max-width: 46ch;
+    font-size: 18px;
+    color: var(--ink-soft);
+    line-height: 1.6;
+  }
+
+  /* ---------- scrapbook photo grid ---------- */
+  .scrapbook{
+    position: relative;
+    z-index: 2;
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 20px 24px 80px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 34px 28px;
+  }
+  @media (max-width: 720px){
+    .scrapbook{ grid-template-columns: repeat(2, 1fr); gap: 30px 20px; }
+  }
+  .polaroid{
+    background: var(--white);
+    padding: 14px 14px 42px;
+    border-radius: 3px;
+    box-shadow: 0 10px 24px rgba(91, 42, 61, 0.14);
+    position: relative;
+  }
+  .polaroid:nth-child(odd){ transform: rotate(-4deg); }
+  .polaroid:nth-child(even){ transform: rotate(3deg); }
+  .polaroid:nth-child(3n){ transform: rotate(-2deg); }
+  .polaroid:hover{ transform: rotate(0deg) scale(1.03); transition: transform .25s ease; }
+  .polaroid .frame{
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    background: var(--bg-soft);
+    border: 2px dashed var(--pink-mid);
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .polaroid .frame img{
+    width: 100%; height: 100%; object-fit: cover; display: block;
+  }
+  .polaroid .frame .hint{
+    font-family: 'Quicksand', sans-serif;
+    font-size: 12px;
+    color: var(--ink-soft);
+    text-align: center;
+    padding: 10px;
+  }
+  .polaroid .cap{
+    position: absolute;
+    bottom: 10px; left: 0; right: 0;
+    text-align: center;
+    font-family: 'Caveat', cursive;
+    font-size: 20px;
+    color: var(--ink-soft);
+  }
+  .tape{
+    position: absolute;
+    top: -10px; left: 50%;
+    transform: translateX(-50%) rotate(-2deg);
+    width: 60px; height: 22px;
+    background: rgba(255, 211, 224, 0.75);
+    border: 1px solid rgba(255,255,255,0.5);
+  }
+
+  /* ---------- letter ---------- */
+  .letter-section{
+    position: relative;
+    z-index: 2;
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 20px 24px 100px;
+  }
+  .letter{
+    background: var(--white);
+    border-radius: 18px;
+    padding: 46px 40px;
+    box-shadow: 0 16px 40px rgba(91, 42, 61, 0.12);
+    position: relative;
+  }
+  .letter::before{
+    content: "";
+    position: absolute;
+    top: 22px; left: 22px; right: 22px; bottom: 22px;
+    border: 1px solid var(--bg-soft);
+    border-radius: 10px;
+    pointer-events: none;
+  }
+  .letter h2{
+    font-family: 'Baloo 2', sans-serif;
+    color: var(--pink-deep);
+    font-size: 30px;
+    margin: 0 0 18px;
+  }
+  .letter p{
+    font-size: 17px;
+    line-height: 1.85;
+    color: var(--ink);
+    margin: 0 0 16px;
+  }
+  .letter .sign{
+    font-family: 'Caveat', cursive;
+    font-size: 28px;
+    color: var(--pink-deep);
+    margin-top: 8px;
+  }
+
+  footer{
+    text-align: center;
+    padding: 0 24px 60px;
+    font-family: 'Caveat', cursive;
+    font-size: 20px;
+    color: var(--ink-soft);
+    position: relative;
+    z-index: 2;
+  }
+
+  /* ---------- music player ---------- */
+  .music-widget{
+    position: fixed;
+    bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+    right: 20px;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--white);
+    border-radius: 999px;
+    box-shadow: 0 10px 28px rgba(91, 42, 61, 0.22);
+    padding: 8px 16px 8px 8px;
+  }
+  .music-widget button{
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    border: none;
+    background: var(--pink-deep);
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform .15s ease;
+  }
+  .music-widget button:hover{ transform: scale(1.06); }
+  .music-widget button:focus-visible{ outline: 3px solid var(--pink-mid); outline-offset: 2px; }
+  .music-widget .label{
+    font-family: 'Quicksand', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ink);
+    max-width: 140px;
+    line-height: 1.2;
+  }
+  .music-widget .label small{
+    display:block;
+    color: var(--ink-soft);
+    font-weight: 500;
+    font-size: 11px;
+  }
+  .yt-embed{
+    position: absolute;
+    width: 1px; height: 1px;
+    overflow: hidden;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg: #2a1420;
+      --bg-soft: #3a1c2c;
+      --white: #3a1c2c;
+      --ink: #ffe3ec;
+      --ink-soft: #e6b8cb;
+      --cream: #3a1c2c;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="hearts" id="hearts"></div>
+
+<section class="hero">
+  <span class="eyebrow-note">a little something for</span>
+  <h1 class="title">swiffi <span>my favorite person, forever and always</span></h1>
+  <p class="sub">eya, this whole page is just for you. scroll down 🩷</p>
+</section>
+
+<!-- ============================================================
+     PHOTO SPOTS — replace the src="" on each <img> below with
+     your photo file names (or paste a base64 image) to fill them in.
+     Each polaroid has an <img> already in the HTML, just empty —
+     find src="" and put your picture path between the quotes.
+     Feel free to also edit the caption text in the <p class="cap"> tags.
+     ============================================================ -->
+<div class="scrapbook">
+
+  <div class="polaroid">
+    <div class="tape"></div>
+    <div class="frame">
+      <img src="eya1.png" alt="photo of swiffi 1" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+      <div class="hint" style="display:flex; flex-direction:column; align-items:center; justify-content:center; height:100%;"></div>
+    </div>
+    <p class="cap">my ride or die</p>
+  </div>
+
+  <div class="polaroid">
+    <div class="tape"></div>
+    <div class="frame">
+      <img src="eya2.png" alt="photo of swiffi 2" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+      <div class="hint" style="display:flex; flex-direction:column; align-items:center; justify-content:center; height:100%;"></div>
+    </div>
+    <p class="cap">iconic duo</p>
+  </div>
+
+  <div class="polaroid">
+    <div class="tape"></div>
+    <div class="frame">
+      <img src="eya3.png" alt="photo of swiffi 3" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+      <div class="hint" style="display:flex; flex-direction:column; align-items:center; justify-content:center; height:100%;"></div>
+    </div>
+    <p class="cap">love you endlessly</p>
+  </div>
+
+  <div class="polaroid">
+    <div class="tape"></div>
+    <div class="frame">
+      <img src="eya4.png" alt="photo of swiffi 4" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+      <div class="hint" style="display:flex; flex-direction:column; align-items:center; justify-content:center; height:100%;"></div>
+    </div>
+    <p class="cap">best memories</p>
+  </div>
+
+  <div class="polaroid">
+    <div class="tape"></div>
+    <div class="frame">
+      <img src="eya5.png" alt="photo of swiffi 5" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+      <div class="hint" style="display:flex; flex-direction:column; align-items:center; justify-content:center; height:100%;"></div>
+    </div>
+    <p class="cap">forever grateful</p>
+  </div>
+
+  <div class="polaroid">
+    <div class="tape"></div>
+    <div class="frame">
+      <img src="eya6.png" alt="photo of swiffi 6" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+      <div class="hint" style="display:flex; flex-direction:column; align-items:center; justify-content:center; height:100%;"></div>
+    </div>
+    <p class="cap">my person</p>
+  </div>
+
+</div>
+
+<section class="letter-section">
+  <div class="letter">
+    <h2>dear swiffi,</h2>
+    <p>
+      I don't say this enough, so I made you a whole website about it: thank you for being
+      exactly who you are. For the late-night calls that turned into hours, the way you
+      remember the small stuff, and the way you show up without me even having to ask.
+    </p>
+    <p>
+      You make hard days lighter and good days better. Every inside joke, every "come over,"
+      every time you had my back when it mattered — I see it, and I don't take it for granted.
+    </p>
+    <p>
+      You're the kind of good that's rare to find. I'm just really lucky it's you.
+    </p>
+    <p class="sign">love you forever, your bestie 🩷</p>
+  </div>
+</section>
+
+<footer>made with love, just for you</footer>
+
+<!-- ============================================================
+     SONG — the YouTube video ID below is already set from your link.
+     If you want a different song, replace VIDEO_ID in the iframe src
+     with the id from a youtube.com/watch?v=THIS_PART url.
+     ============================================================ -->
+<div class="music-widget">
+  <button id="playBtn" aria-label="Play song" aria-pressed="false">▶</button>
+  <div class="label">our song<small>tap to play</small></div>
+</div>
+<audio id="ytPlayer" src="U Werent Here I Really Miss You.mp3" preload="auto"></audio>
+
+<script>
+  (function(){
+    var container = document.getElementById('hearts');
+    var count = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 18;
+    for (var i = 0; i < count; i++){
+      var el = document.createElement('span');
+      el.textContent = Math.random() > 0.5 ? '🩷' : '💗';
+      el.style.left = Math.random() * 100 + '%';
+      el.style.animationDelay = (Math.random() * 2) + 's';
+      el.style.fontSize = (16 + Math.random() * 18) + 'px';
+      container.appendChild(el);
+    }
+    setTimeout(function(){ container.remove(); }, 7000);
+  })();
+
+  (function(){
+    var btn = document.getElementById('playBtn');
+    var audio = document.getElementById('ytPlayer');
+    var playing = false;
+
+    btn.addEventListener('click', function(){
+      if (!playing){
+        audio.play();
+        btn.textContent = '❚❚';
+        btn.setAttribute('aria-label', 'Pause song');
+        btn.setAttribute('aria-pressed', 'true');
+      } else {
+        audio.pause();
+        btn.textContent = '▶';
+        btn.setAttribute('aria-label', 'Play song');
+        btn.setAttribute('aria-pressed', 'false');
+      }
+      playing = !playing;
+    });
+  })();
+</script>
+
+</body>
+</html>
